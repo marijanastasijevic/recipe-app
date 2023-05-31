@@ -42,7 +42,15 @@ function addMeal(mealData, random = false){
             </button>
         </div>   
     `
-    meals.appendChild(meal)
+    
+    meals.appendChild(meal);
+
+    const btn =  meal.querySelector('.meal-body .fav-btn');
+
+    btn.addEventListener('click', () => {
+        btn.classList.toggle('active');
+        
+    })
 }
 
 getRandomMeal()
