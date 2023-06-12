@@ -1,4 +1,5 @@
-const meals = document.getElementById('meals')
+const meals = document.getElementById('meals');
+const favoriteContainer = document.getElementById("fav-meals");
 
 async function getRandomMeal(){
     const response = await fetch("https://www.themealdb.com/api/json/v1/1/random.php")
@@ -13,11 +14,22 @@ async function getRandomMeal(){
 }
 
 async function getMealById(id){
-    const meal = await fetch("https://www.themealdb.com/api/json/v1/1/lookup.php?i="+id)
+    const resp = await fetch("https://www.themealdb.com/api/json/v1/1/lookup.php?i="+id);
+
+    const respData = await resp.json();
+    const meal = respData.meals[0];
+
+    return meal
 }
 
 async function getMealsBySearch(name){
-   const meal = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s="+name)
+   const resp = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s="+name)
+
+
+   const respData = await resp.json();
+   const meals = respData.meals;
+
+   return meals;
 }
 
 //postavljanje vrednosti parametru funkcije je difoltna vrenost
@@ -42,39 +54,42 @@ function addMeal(mealData, random = false){
             </button>
         </div>   
     `
-    
-    meals.appendChild(meal);
 
     const btn =  meal.querySelector('.meal-body .fav-btn');
 
     btn.addEventListener('click', () => {
         if(btn.classList.contains('active')){
-            removeMealLocalStorage(mealData.idMeal);
+            console.log(`Remove meal ${mealData.idMeal}`)
+            removeMealfromLS(mealData.idMeal);
             btn.classList.remove('active')
         }
         else{
-            addMealLocalStorage(mealData.idMeal);
+            console.log(`Add meal ${mealData.idMeal}`)
+            addMealtoLS(mealData.idMeal);
             btn.classList.add('active')
+            
         }
-        btn.classList.toggle('active');
-        
+        //btn.classList.toggle('active');
+
     })
+
+    meals.appendChild(meal);
 }
 
-function addMealLocalStorage(mealId){
-    const mealIds = getMealsLocalStorage()
-    localStorage.setItem('mealIds', JSON.stringify([...mealIds, mealId]))
+function addMealtoLS(mealId){
+    const mealIds = getMealsfromLS()
+    localStorage.setItem("mealIds", JSON.stringify([...mealIds, mealId]))
 
 }
 
-function removeMealLocalStorage(){
-    const mealIds = getMealById();
+function removeMealfromLS(mealId){
+    const mealIds = getMealsfromLS();
 
-    localStorage.setItem('mealIds',JSON.stringify(mealIds.filter(id => id !== mealId)))
+    localStorage.setItem("mealIds", JSON.stringify(mealIds.filter((id) => id !== mealId))) 
 }
 
-function getMealsLocalStorage(){
-    const mealIds = localStorage.getItem('mealIds');
+function getMealsfromLS(){
+    const mealIds = JSON.parse(localStorage.getItem("mealIds"));
 
     return mealIds === null ? [] : mealIds;
 }
