@@ -143,3 +143,48 @@ header button{
     background-color: #7a2ce0;
 }
 
+.popup-container{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.popup-container.hidden{
+    opacity: 0;
+    user-select: none;
+    pointer-events: none;
+}
+
+.popup{
+    background-color: white;
+    max-width: 900px;
+    width: 50%;
+    position: relative;
+}
+
+.popup .close-popup{
+    font-size: 25px;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer; 
+}
+
+.meal-info h1{
+    text-align: center;
+}
+
+.meal-info img{
+    max-width: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
