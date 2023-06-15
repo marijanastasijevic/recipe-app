@@ -173,6 +173,7 @@ header button{
     /* dodavanje skrolera */
     overflow: auto;  
     position: relative;
+    padding: 10px 10px;
     
 }
 
