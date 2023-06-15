@@ -82,11 +82,12 @@ function addMeal(mealData, random = false){
             
         }
         
-         
         //clean the container
-        
         fetchFavMeals();
+    })
 
+    meal.addEventListener('click', () => {
+        showMealInfo(mealData)
     })
 
     mealsEl.appendChild(meal);
@@ -150,6 +151,11 @@ function addMealtoFav(mealData){
        fetchFavMeals();
     });
 
+    favMeal.addEventListener('click', () => {
+        showMealInfo(mealData)
+    })
+
+
 
     favoriteContainer.appendChild(favMeal);
 }
@@ -171,8 +177,26 @@ searchBtn.addEventListener('click', async() => {
 })
 
 function showMealInfo (mealData) {
+    //clean it up
+    mealInfoEl.innerHTML = '';
+
     //update meal info
     const mealEl = document.createElement('div');
+
+    //get ingredients and mesures
+    const ingredients = [];
+
+    for (let i = 1; i <= 20; i++) {
+        if (mealData["strIngredient" + i]) {
+            ingredients.push(
+                `${mealData["strIngredient" + i]} - ${
+                    mealData["strMeasure" + i]
+                }`
+            );
+        } else {
+            break;
+        }
+    }
 
     mealEl.innerHTML = 
     `
@@ -181,10 +205,15 @@ function showMealInfo (mealData) {
 
         <p>${mealData.strInstructions}</p>
 
+        <h3>Ingredients:</h3>
         <ul>
-            <li>ing 1 / mesure</li>
-            <li>ing 2 / mesure</li>
-            <li>ing 3 / mesure</li>
+            ${ingredients
+                .map(
+                    (ing) => `
+            <li>${ing}</li>
+            `
+                )
+                .join("")}
         </ul>
     `
 

@@ -15,9 +15,10 @@ body{
 
 }
 .container{
-   overflow: hidden;
+    overflow: hidden;
     background-color: aliceblue;
     margin-top: 80px;
+    max-width: 800px;
 }
 
 img{
@@ -62,16 +63,14 @@ header button{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding-inline-start: 10px;
-    padding-inline-end: 10px;
-    
+    padding: 0;
 }
 
 .fav-meals li{
     position: relative;
     cursor: pointer;
     margin: 5px;
-    width: 150px;
+    width: 180px;
 }
 
 .fav-meals li .clear{
@@ -92,20 +91,25 @@ header button{
 .fav-meals li img{
     border-radius: 50%;
     object-fit: cover;
-    height: 150px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
     /* padding-left: 10px; */
     justify-content: center;
 }
 
 .fav-meals li span{
     font-size: 15px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .meal{
     /* margin: 20px; */
     border-radius: 3px;
     position: relative;
+    overflow: hidden;
+    cursor: pointer;
 
 }
 
@@ -165,7 +169,11 @@ header button{
     background-color: white;
     max-width: 900px;
     width: 50%;
+    max-height: 700px;
+    /* dodavanje skrolera */
+    overflow: auto;  
     position: relative;
+    
 }
 
 .popup .close-popup{
